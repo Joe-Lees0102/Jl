@@ -1,1 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Project Display</title>
+</head>
+<body style="margin: 0; padding: 2rem; font-family: Arial, sans-serif; background: linear-gradient(to bottom, #007BFF, #ffffff); min-height: 100vh; scroll-behavior: smooth;">
+
+  <!-- Language Selector -->
+  <div style="position: absolute; top: 1rem; left: 1rem;">
+    <label for="language" style="color: white; font-weight: bold; margin-right: 0.5rem;">Language:</label>
+    <select id="language" onchange="setLanguage(this.value)" style="padding: 0.3rem;">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+      <option value="fr">Français</option>
+    </select>
+  </div>
+
+  <!-- Project Container -->
+  <div style="max-width: 600px; margin: auto; background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; margin-top: 3rem;">
+
+    <h1 id="projectTitle" style="font-size: 1.8rem; margin-bottom: 1rem;">Project Name</h1>
+
+    <div style="width: 100%; height: 300px; border: 2px dashed #ccc; background-color: #e0e0e0; display: flex; align-items: center; justify-content: center; color: #666; font-size: 1.2rem; margin-bottom: 2rem;">
+      <img 
+        src="no-photo.jpg" 
+        data-src="actual-project-photo.jpg" 
+        loading="lazy" 
+        alt="Project Image"
+        style="width: 100%; height: 100%; object-fit: cover; display: block;"
+        onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #666; font-size: 1.2rem;\'>No photo yet</div>'"
+      >
+    </div>
+
+    <h2 id="descriptionHeading" style="font-size: 1.5rem; margin-bottom: 0.5rem; text-align: left;">Project Description</h2>
+
+    <div style="text-align: left; font-size: 1rem; color: #333; line-height: 1.5;">
+      <p id="projectDescription">
+        This is a placeholder for the project description. You can replace this text with a detailed explanation of your project, what it does, how it was built, and any other relevant information.
+      </p>
+    </div>
+
+    <!-- Back to Home Button -->
+    <div style="margin-top: 2rem;">
+      <a id="backHome" href="https://joe-lees0102.github.io/Jl/" style="display: inline-block; padding: 0.6rem 1.2rem; background-color: #007BFF; color: white; text-decoration: none; border-radius: 4px; font-size: 1rem;">← Back to Home</a>
+    </div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <a id="backTop" href="#top" 
+     style="position: fixed; bottom: 20px; right: 20px; background-color: #007BFF; color: white; text-decoration: none; padding: 0.6rem 1rem; border-radius: 50px; font-size: 0.9rem; box-shadow: 0 2px 6px rgba(0,0,0,0.3);">
+    ↑ Top
+  </a>
+
+  <!-- Invisible anchor for top scroll -->
+  <div id="top"></div>
+
+  <!-- Translation Script -->
+  <script>
+    const translations = {
+      en: {
+        projectTitle: "Project Name",
+        descriptionHeading: "Project Description",
+        projectDescription: "This is a placeholder for the project description. You can replace this text with a detailed explanation of your project, what it does, how it was built, and any other relevant information.",
+        backHome: "← Back to Home",
+        backTop: "↑ Top"
+      },
+      es: {
+        projectTitle: "Nombre del Proyecto",
+        descriptionHeading: "Descripción del Proyecto",
+        projectDescription: "Este es un texto de ejemplo para la descripción del proyecto. Puedes reemplazarlo con una explicación detallada de tu proyecto, lo que hace, cómo fue construido y cualquier otra información relevante.",
+        backHome: "← Volver al Inicio",
+        backTop: "↑ Arriba"
+      },
+      fr: {
+        projectTitle: "Nom du Projet",
+        descriptionHeading: "Description du Projet",
+        projectDescription: "Ceci est un texte de remplacement pour la description du projet. Vous pouvez le remplacer par une explication détaillée de votre projet, son fonctionnement, sa conception, et toute autre information pertinente.",
+        backHome: "← Retour à l'Accueil",
+        backTop: "↑ Haut"
+      }
+    };
+
+    function setLanguage(lang) {
+      document.getElementById("projectTitle").innerText = translations[lang].projectTitle;
+      document.getElementById("descriptionHeading").innerText = translations[lang].descriptionHeading;
+      document.getElementById("projectDescription").innerText = translations[lang].projectDescription;
+      document.getElementById("backHome").innerText = translations[lang].backHome;
+      document.getElementById("backTop").innerText = translations[lang].backTop;
+    }
+  </script>
+</body>
+</html>
 
