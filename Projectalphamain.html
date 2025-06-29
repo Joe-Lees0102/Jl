@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Per Item Calculator</title>
+    <style>
+        /* Overall Background Gradient */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: linear-gradient(to bottom, #007BFF, #f4f4f9);
+            transition: background 0.3s ease;
+        }
+
+        /* Language Selector */
+        #languageSelect {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #ffffff;
+            border: 1px solid #007BFF;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Dark Mode Toggle */
+        #darkModeToggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #fff;
+            border: none;
+            padding: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        h1 {
+            color: #007BFF;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+            text-align: left;
+        }
+
+        input[type="number"], input[type="button"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #007BFF;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input[type="number"]:focus, input[type="button"]:hover {
+            border-color: #0056b3;
+            box-shadow: 0 0 8px rgba(0, 91, 255, 0.4);
+        }
+
+        .result {
+            background-color: #e7f7ff;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            color: #333;
+            display: none;
+            margin-top: 20px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .result h3 {
+            margin: 0;
+            font-weight: 600;
+            color: #007BFF;
+        }
+
+        input[type="button"] {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        input[type="button"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Back Button */
+        #backButton {
+            position: absolute;
+            bottom: 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        #backButton a {
+            background-color: #007BFF;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        #backButton a:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive Design for Mobile */
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            input[type="number"], input[type="button"] {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+
+        /* Dark Mode Styles */
+        .dark-mode {
+            background-color: #333;
+            color: white;
+        }
+
+        .dark-mode input[type="number"], .dark-mode input[type="button"] {
+            background-color: #555;
+            color: white;
+            border-color: #777;
+        }
+
+        .dark-mode .result {
+            background-color: #444;
+            color: white;
+        }
+
+        .dark-mode .result h3 {
+            color: #77aaff;
+        }
+
+        .dark-mode #languageSelect {
+            background-color: #444;
+            color: white;
+            border-color: #777;
+        }
+
+        .dark-mode #darkModeToggle {
+            background-color: #444;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Language Selector -->
+<select id="languageSelect" onchange="changeLanguage()">
+    <option value="en">English</option>
+    <option value="es">Español</option>
+    <option value="fr">Français</option>
+</select>
+
+<!-- Dark Mode Toggle -->
+<button id="darkModeToggle" onclick="toggleDarkMode()">Dark Mode</button>
+
+<div class="container">
+    <h1 id="title">Price Per Item Calculator</h1>
+    <label for="price" id="labelPrice">Total Price of Product:</label>
+    <input type="number" id="price" placeholder="Enter total price" step="0.01">
+
+    <label for="quantity" id="labelQuantity">Quantity of Product:</label>
+    <input type="number" id="quantity" placeholder="Enter quantity" min="1">
+
+    <input type="button" value="Calculate Price Per Item" onclick="calculatePrice()" id="calculateBtn">
+
+    <div class="result" id="result">
+        <h3 id="resultText">Price Per Item: $<span id="pricePerItem">0.00</span></h3>
+    </div>
+</div>
+
+<!-- Back Button -->
+<div id="backButton">
+    <a href="#" onclick="window.history.back();">Back to Previous Page</a>
+</div>
+
+<script>
+    let translations = {
+        en: {
+            title: "Price Per Item Calculator",
+            labelPrice: "Total Price of Product:",
+            labelQuantity: "Quantity of Product:",
+            calculateBtn: "Calculate Price Per Item",
+            resultText: "Price Per Item: $"
+        },
+        es: {
+            title: "Calculadora de Precio Por Artículo",
+            labelPrice: "Precio Total del Producto:",
+            labelQuantity: "Cantidad del Producto:",
+            calculateBtn: "Calcular Precio Por Artículo",
+            resultText: "Precio Por Artículo: $"
+        },
+        fr: {
+            title: "Calculatrice du Prix Par Article",
+            labelPrice: "Prix Total du Produit:",
+            labelQuantity: "Quantité du Produit:",
+            calculateBtn: "Calculer le Prix Par Article",
+            resultText: "Prix Par Article: $"
+        }
+    };
+
+    function changeLanguage() {
+        const selectedLanguage = document.getElementById('languageSelect').value;
+        document.getElementById('title').textContent = translations[selectedLanguage].title;
+        document.getElementById('labelPrice').textContent = translations[selectedLanguage].labelPrice;
+        document.getElementById('labelQuantity').textContent = translations[selectedLanguage].labelQuantity;
+        document.getElementById('calculateBtn').value = translations[selectedLanguage].calculateBtn;
+        document.getElementById('resultText').textContent = translations[selectedLanguage].resultText;
+    }
+
+    function calculatePrice() {
+        const price = parseFloat(document.getElementById('price').value);
+        const quantity = parseInt(document.getElementById('quantity').value);
+
+        if (!isNaN(price) && !isNaN(quantity) && quantity > 0) {
+            const pricePerItem = (price / quantity).toFixed(2);
+            document.getElementById('pricePerItem').textContent = pricePerItem;
+            document.getElementById('result').style.display = 'block';
+        } else {
+            alert("Please enter valid values for price and quantity.");
+        }
+    }
+
+    function toggleDarkMode() {
+        const body = document.body;
+        const darkModeToggle = document.getElementById('darkModeToggle');
+
+        body.classList.toggle('dark-mode');
+        darkModeToggle.textContent = body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
+    }
+</script>
+
+</body>
+</html>
