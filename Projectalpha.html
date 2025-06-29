@@ -40,9 +40,18 @@
       </p>
     </div>
 
-    <!-- Back to Home Button -->
+    <!-- Use This Project Button (styled like other buttons) -->
     <div style="margin-top: 2rem;">
-      <a id="backHome" href="https://joe-lees0102.github.io/Jl/" style="display: inline-block; padding: 0.6rem 1.2rem; background-color: #007BFF; color: white; text-decoration: none; border-radius: 4px; font-size: 1rem;">← Back to Home</a>
+      <a href="https://placeholderlink.com" target="_blank" style="display: inline-block; padding: 0.6rem 1.2rem; background-color: #007BFF; color: white; text-decoration: none; border-radius: 4px; font-size: 1rem; border: 2px solid #007BFF; transition: background-color 0.3s, border-color 0.3s;">
+        Use This Project
+      </a>
+    </div>
+
+    <!-- Back to Home Button -->
+    <div style="margin-top: 1rem;">
+      <a id="backHome" href="https://joe-lees0102.github.io/Jl/" style="display: inline-block; padding: 0.6rem 1.2rem; background-color: #007BFF; color: white; text-decoration: none; border-radius: 4px; font-size: 1rem; border: 2px solid #007BFF; transition: background-color 0.3s, border-color 0.3s;">
+        ← Back to Home
+      </a>
     </div>
   </div>
 
@@ -63,21 +72,24 @@
         descriptionHeading: "Project Description",
         projectDescription: "This is a placeholder for the project description. You can replace this text with a detailed explanation of your project, what it does, how it was built, and any other relevant information.",
         backHome: "← Back to Home",
-        backTop: "↑ Top"
+        backTop: "↑ Top",
+        useThisProject: "Use This Project"
       },
       es: {
         projectTitle: "Nombre del Proyecto",
         descriptionHeading: "Descripción del Proyecto",
         projectDescription: "Este es un texto de ejemplo para la descripción del proyecto. Puedes reemplazarlo con una explicación detallada de tu proyecto, lo que hace, cómo fue construido y cualquier otra información relevante.",
         backHome: "← Volver al Inicio",
-        backTop: "↑ Arriba"
+        backTop: "↑ Arriba",
+        useThisProject: "Usa Este Proyecto"
       },
       fr: {
         projectTitle: "Nom du Projet",
         descriptionHeading: "Description du Projet",
         projectDescription: "Ceci est un texte de remplacement pour la description du projet. Vous pouvez le remplacer par une explication détaillée de votre projet, son fonctionnement, sa conception, et toute autre information pertinente.",
         backHome: "← Retour à l'Accueil",
-        backTop: "↑ Haut"
+        backTop: "↑ Haut",
+        useThisProject: "Utiliser Ce Projet"
       }
     };
 
@@ -87,6 +99,7 @@
       document.getElementById("projectDescription").innerText = translations[lang].projectDescription;
       document.getElementById("backHome").innerText = translations[lang].backHome;
       document.getElementById("backTop").innerText = translations[lang].backTop;
+      document.querySelector("a[href='https://placeholderlink.com']").innerText = translations[lang].useThisProject;
     }
   </script>
 </body>
