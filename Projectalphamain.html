@@ -140,6 +140,15 @@
             background-color: #0056b3;
         }
 
+        /* Error Message Styling */
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: -15px;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
         /* Responsive Design for Mobile */
         @media (max-width: 480px) {
             .container {
@@ -205,9 +214,11 @@
     <h1 id="title">Price Per Item Calculator</h1>
     <label for="price" id="labelPrice">Total Price of Product:</label>
     <input type="number" id="price" placeholder="Enter total price" step="0.01">
+    <div class="error" id="priceError"></div>
 
     <label for="quantity" id="labelQuantity">Quantity of Product:</label>
     <input type="number" id="quantity" placeholder="Enter quantity" min="1">
+    <div class="error" id="quantityError"></div>
 
     <input type="button" value="Calculate Price Per Item" onclick="calculatePrice()" id="calculateBtn">
 
@@ -256,15 +267,28 @@
     }
 
     function calculatePrice() {
+        // Clear previous error messages
+        document.getElementById('priceError').textContent = '';
+        document.getElementById('quantityError').textContent = '';
+
         const price = parseFloat(document.getElementById('price').value);
         const quantity = parseInt(document.getElementById('quantity').value);
+        let valid = true;
 
-        if (!isNaN(price) && !isNaN(quantity) && quantity > 0) {
+        if (isNaN(price) || price <= 0) {
+            document.getElementById('priceError').textContent = "Please enter a valid price greater than 0.";
+            valid = false;
+        }
+
+        if (isNaN(quantity) || quantity <= 0) {
+            document.getElementById('quantityError').textContent = "Please enter a valid quantity greater than 0.";
+            valid = false;
+        }
+
+        if (valid) {
             const pricePerItem = (price / quantity).toFixed(2);
             document.getElementById('pricePerItem').textContent = pricePerItem;
             document.getElementById('result').style.display = 'block';
-        } else {
-            alert("Please enter valid values for price and quantity.");
         }
     }
 
